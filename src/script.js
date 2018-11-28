@@ -21,12 +21,16 @@ function oneDrive_download(file_path) {
 
 
     download_folder(localStorage.getItem("oneDriveToken"), file_path).then(function(result){
+        document.getElementById("step3").style.visibility = "visible";
         document.getElementById("file_header").innerHTML = "File Path : " + file_path;
-        document.getElementById("file_contents").innerHTML = result[1];
+        document.getElementById("file_contents").innerHTML = "File Contents : " + result[1];
     }).catch(function(error){
         if(error[0] == 401){
             alert("You are unauthorized, try logging in");
-        }else{
+        }else if(error[0] == 404){
+            alert("item not found, check path");
+        }
+        else{
             alert("You have a wierd error, check the console");
             console.log(error);
         }
@@ -52,7 +56,6 @@ function download_folder(token, file_path) {
                 resolve(result);
             })
         }).catch(function (error) {
-            console.log(error);
             reject(error);
         })
     });
@@ -118,3 +121,8 @@ function store_session(token) {
     localStorage.setItem("oneDriveExpiresAt", expiresAt);
     localStorage.setItem("oneDriveToken", token);
 }
+
+
+document.addEventListener( "DOMContentLoaded", function(){
+    document.getElementById("step3").style.visibility = "hidden";
+})
