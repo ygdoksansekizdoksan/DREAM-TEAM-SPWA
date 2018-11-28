@@ -1,5 +1,5 @@
 
-function OneDrive_Login() {
+function oneDrive_login() {
     console.log('onedrive login');
 
     var appInfo = {
@@ -13,16 +13,20 @@ function OneDrive_Login() {
     challengeForAuth();
 }
 
+function oneDrive_download(){
+    console.log('download item');
+}
+
 
 window.onAuthenticated = function (token, authWindow) {
     if (token) {
         authWindow.close();
         this.console.log("token : ", token);
-        storeOneDriveSession(token);
+        store_session(token);
     }
 }
 
-function storeOneDriveSession(token) {
+function store_session(token) {
     var expiresAt = JSON.stringify(3600 * 1000 + new Date().getTime());
     localStorage.setItem("oneDriveExpiresAt", expiresAt);
     localStorage.setItem("oneDriveToken", token);
