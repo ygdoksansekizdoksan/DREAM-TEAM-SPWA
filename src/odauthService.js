@@ -113,9 +113,9 @@ function provideAppInfo(appInfo) {
 
 function getAppInfo() {
 
-  if(storedAppInfo){
-    return storedAppInfo;
-  }
+ if(storedAppInfo){
+   return storedAppInfo;
+ }
 
   var scriptTag = document.getElementById("odauth");
   if (!scriptTag) {
@@ -184,7 +184,7 @@ function removeLoginButton() {
 function challengeForAuth() {
   var appInfo = getAppInfo();
   var url =
-    "https://login.live.com/oauth20_authorize.srf" +
+    "https://login.microsoftonline.com/common/oauth2/v2.0/authorize" +
     "?client_id=" + appInfo.clientId +
     "&scope=" + encodeURIComponent(appInfo.scopes) +
     "&response_type=token" +
