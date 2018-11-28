@@ -2,8 +2,7 @@
 // - host a copy of callback.html and odauth.js on your domain.
 // - embed odauth.js in your app like this:
 //   <script id="odauth" src="odauth.js"
-//           clientId="YourClientId" scopes="ScopesYouNeed"
-//           redirectUri="YourUrlForCallback.html"></script>
+//           ></script>
 // - define the onAuthenticated(token) function in your app to receive the auth token.
 // - call odauth() to begin, as well as whenever you need an auth token
 //   to make an API call. if you're making an api call in response to a user's
@@ -30,19 +29,7 @@
 //
 // subsequent calls to odauth() will usually complete immediately without the
 // popup because the cookie is still fresh.
-function odauth(wasClicked) {
-  ensureHttps();
-  var token = getTokenFromCookie();
-  if (token) {
-    onAuthenticated(token);
-  }
-  else if (wasClicked) {
-    challengeForAuth();
-  }
-  else {
-    showLoginButton();
-  }
-}
+
 
 // for added security we require https
 function ensureHttps() {
@@ -52,10 +39,9 @@ function ensureHttps() {
 }
 
 function onAuthCallback() {
+  console.log('callback');
   var authInfo = getAuthInfoFromUrl();
   var token = authInfo["access_token"];
-  var expiry = parseInt(authInfo["expires_in"]);
-  setCookie(token, expiry);
   window.opener.onAuthenticated(token, window);
 }
 
@@ -72,124 +58,51 @@ function getAuthInfoFromUrl() {
   }
 }
 
-function getTokenFromCookie() {
-  var cookies = document.cookie;
-  var name = "odauth=";
-  var start = cookies.indexOf(name);
-  if (start >= 0) {
-    start += name.length;
-    var end = cookies.indexOf(';', start);
-    if (end < 0) {
-      end = cookies.length;
-    }
-    else {
-      postCookie = cookies.substring(end);
-    }
 
-    var value = cookies.substring(start, end);
-    return value;
-  }
-
-  return "";
-}
-
-function setCookie(token, expiresInSeconds) {
-  var expiration = new Date();
-  expiration.setTime(expiration.getTime() + expiresInSeconds * 1000);
-  var cookie = "odauth=" + token + "; path=/; expires=" + expiration.toUTCString();
-
-  if (document.location.protocol.toLowerCase() == "https") {
-    cookie = cookie + ";secure";
-  }
-
-  document.cookie = cookie;
-}
 
 var storedAppInfo = null;
 
 function provideAppInfo(appInfo) {
+
+  if (!appInfo.hasOwnProperty("clientId")) {
+    alert("clientId was is not defined");
+    return;
+  }
+  if (!appInfo.hasOwnProperty("redirectUri")) {
+    alert("redirectUri was is not defined");
+    return;
+  }
+  if (!appInfo.hasOwnProperty("scopes")) {
+    alert("scopes was is not defined");
+    return;
+  }
+  if (!appInfo.hasOwnProperty("authServiceUri")) {
+    alert("authServiceUri was is not defined");
+    return;
+  }
+
   storedAppInfo = appInfo;
 }
 
 function getAppInfo() {
 
- if(storedAppInfo){
-   return storedAppInfo;
- }
-
-  var scriptTag = document.getElementById("odauth");
-  if (!scriptTag) {
-    alert("the script tag for odauth.js should have its id set to 'odauth'");
+  if (storedAppInfo) {
+    return storedAppInfo;
   }
 
-  var clientId = scriptTag.getAttribute("clientId");
-  if (!clientId) {
-    alert("the odauth script tag needs a clientId attribute set to your application id");
-  }
-
-  var scopes = scriptTag.getAttribute("scopes");
-  if (!scopes) {
-    alert("the odauth script tag needs a scopes attribute set to the scopes your app needs");
-  }
-
-  var redirectUri = scriptTag.getAttribute("redirectUri");
-  if (!redirectUri) {
-    alert("the odauth script tag needs a redirectUri attribute set to your redirect landing url");
-  }
-
-  var appInfo = {
-    "clientId": clientId,
-    "scopes": scopes,
-    "redirectUri": redirectUri
-  };
-
-  return appInfo;
+  alert("No AppInfo was provided, make sure provedAppInfo() was called");
 }
 
-// called when a login button needs to be displayed for the user to click on.
-// if a customLoginButton() function is defined by your app, it will be called
-// with 'true' passed in to indicate the button should be added. otherwise, it
-// will insert a textual login link at the top of the page. if defined, your
-// showCustomLoginButton should call challengeForAuth() when clicked.
-function showLoginButton() {
-  if (typeof showCustomLoginButton === "function") {
-    showCustomLoginButton(true);
-    return;
-  }
 
-  var loginText = document.createElement('a');
-  loginText.href = "#";
-  loginText.id = "loginText";
-  loginText.onclick = challengeForAuth;
-  loginText.innerText = "[sign in]";
-  document.body.insertBefore(loginText, document.body.children[0]);
-}
-
-// called with the login button created by showLoginButton() needs to be
-// removed. if a customLoginButton() function is defined by your app, it will
-// be called with 'false' passed in to indicate the button should be removed.
-// otherwise it will remove the textual link that showLoginButton() created.
-function removeLoginButton() {
-  if (typeof showCustomLoginButton === "function") {
-    showCustomLoginButton(false);
-    return;
-  }
-
-  var loginText = document.getElementById("loginText");
-  if (loginText) {
-    document.body.removeChild(loginText);
-  }
-}
 
 function challengeForAuth() {
   var appInfo = getAppInfo();
   var url =
-    "https://login.microsoftonline.com/common/oauth2/v2.0/authorize" +
+    appInfo.authServiceUri +
     "?client_id=" + appInfo.clientId +
     "&scope=" + encodeURIComponent(appInfo.scopes) +
     "&response_type=token" +
     "&redirect_uri=" + encodeURIComponent(appInfo.redirectUri);
-  console.log(url);
   popup(url);
 }
 
