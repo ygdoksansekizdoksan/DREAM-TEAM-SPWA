@@ -12,18 +12,22 @@
 
 <body>
     <div>
+        <h2>Step 1) Login into OneDrive</H2>
         <button onClick="oneDrive_login()" type="button">OneDrive Login</button>
     </div>
 
     <div>
+        <h2>Step 2) Download a File</h2>
+        <p> Specify the path to a file, example test/test/test.txt</p>
         <form action="javascript:oneDrive_download(file_path.value)">
             <input type="text" id="file_path" name="folder_path">
             <button  type="submit">Download Item</button>
         </form>
     </div>
     <div>
-        <h1 id="file_header"></h1>
-        <p id="file_text"></p>
+        <h2>Step 3) Tadaa your file</h2>
+        <h4 id="file_header"></h4>
+        <p id="file_contents"></p>
     </div>
 
 
