@@ -12,3 +12,11 @@ function OneDrive_Login(){
     provideAppInfo(appInfo);
     challengeForAuth();
 }
+
+
+window.onAuthenticated = function (token, authWindow) {
+    if (token) {
+        this.console.log("token : ", token);
+        authWindow.close();
+    }
+}
