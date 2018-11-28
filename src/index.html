@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,10 +9,22 @@
     <script type="text/javascript" src="./odauthService.js"></script>
     <script type="text/javascript" src="./script.js"></script>
 </head>
-<body>
 
-    <button onClick="oneDrive_login()" type="button">OneDrive Login</button>
-    <button onClick="oneDrive_download()" type="button">Download Item</button>
+<body>
+    <div>
+        <button onClick="oneDrive_login()" type="button">OneDrive Login</button>
+    </div>
+
+    <div>
+        <form action="javascript:oneDrive_download()">
+            <input type="text" name="folder_path">
+            <button onClick="oneDrive_download()" type="button">Download Item</button>
+        </form>
     
+    </div>
+
+
+
 </body>
+
 </html>
