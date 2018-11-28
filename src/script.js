@@ -14,18 +14,30 @@ function oneDrive_login() {
 }
 
 function oneDrive_download(file_path) {
-    if(!is_authenticated()){
+    if (!is_authenticated()) {
         alert("login into onedrive")
         return;
     }
 
 
-    donwload_folder(localStorage.getItem("oneDriveToken"),file_path);
+    donwload_folder(localStorage.getItem("oneDriveToken"), file_path);
 }
 
-function donwload_folder(token,file_path){
-    var path = "/me/drive/root:/"+file_path+":/content";
-    console.log(path);
+function donwload_folder(token, file_path) {
+    var URI = "https://graph.microsoft.com/v1.0/me/drive/root:/" + file_path;
+    console.log(URI);
+
+    var xhttp = new XMLHttpRequest();
+    
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            console.log(JSON.parse(xhttp.responseText));
+        }
+    };
+    xhttp.open("GET",URI, true);
+    xhttp.setRequestHeader("Content-Type","application/json");
+    xhttp.setRequestHeader("Authorization","bearer " + token);
+    xhttp.send();
 }
 
 
