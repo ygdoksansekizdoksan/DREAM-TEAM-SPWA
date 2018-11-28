@@ -20,7 +20,16 @@ function oneDrive_download(file_path) {
     }
 
 
-    donwload_folder(localStorage.getItem("oneDriveToken"), file_path);
+    download_folder(localStorage.getItem("oneDriveToken"), file_path).then(function(result){
+  
+    }).catch(function(error){
+        if(error[0] == 401){
+            alert("You are unauthorized, try logging in");
+        }else{
+            alert("You have a wierd error, check the console");
+            console.log(error);
+        }
+    });
 }
 
 
@@ -31,31 +40,61 @@ function oneDrive_download(file_path) {
     Make sure when using @microsoft.graph.downloadUrl property dont send authorization 
 */
 
-function donwload_folder(token, file_path) {
+
+function download_folder(token, file_path) {
     return new Promise(function (resolve, reject) {
-        var URI = "https://graph.microsoft.com/v1.0/me/drive/root:/" + file_path;
-     
-        var xhttp = new XMLHttpRequest();
-
-        xhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                var download_uri = JSON.parse(xhttp.responseText)["@microsoft.graph.downloadUrl"];
-                var download_request = new XMLHttpRequest();
-
-                download_request.onreadystatechange = function () {
-                    if (this.readyState == 4 && this.status == 200) {
-                        resolve(download_request.responseText);
-                    }
-                }
-                download_request.open("GET", download_uri, true);
-                download_request.send();
-            }
-        };
-        xhttp.open("GET", URI, true);
-        xhttp.setRequestHeader("Authorization", "bearer " + token);
-        xhttp.send();
+        donwload_metadata(token, file_path).then(function (result) {
+            var response = JSON.parse(result[1]);
+            return response;
+        }).then(function (result) {
+            download_contents(result["@microsoft.graph.downloadUrl"]).then(function (result) {
+                resolve(result);
+            })
+        }).catch(function (error) {
+            console.log(error);
+            reject(error);
+        })
     });
 
+}
+
+function donwload_metadata(token, file_path) {
+    return new Promise(function (resolve, reject) {
+        var URI = "https://graph.microsoft.com/v1.0/me/drive/root:/" + file_path;
+
+        var metaData_request = new XMLHttpRequest();
+
+        metaData_request.onreadystatechange = function () {
+            if (this.readyState == 4) {
+                if (this.status == 200) {
+                    resolve([this.status,metaData_request.responseText]);
+                } else {
+                    reject([this.status,metaData_request.responseText]);
+                }
+            }
+        };
+        metaData_request.open("GET", URI, true);
+        metaData_request.setRequestHeader("Authorization", "bearer " + token);
+        metaData_request.send();
+    });
+
+}
+
+function download_contents(download_uri) {
+    return new Promise(function (resolve, reject) {
+        var download_request = new XMLHttpRequest();
+        download_request.onreadystatechange = function () {
+            if (this.readyState == 4) {
+                if (this.status == 200) {
+                    resolve([this.status,download_request.responseText]);
+                } else {
+                    reject([this.status,download_request.responseText]);
+                }
+            }
+        }
+        download_request.open("GET", download_uri, true);
+        download_request.send();
+    });
 }
 
 
