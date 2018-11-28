@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>OneDrive API SPWA</title>
+    <link rel="stylesheet" type="text/css" href="theme.css">
     <script type="text/javascript" src="./odauthService.js"></script>
     <script type="text/javascript" src="./script.js"></script>
 </head>
@@ -18,14 +19,14 @@
 
     <div>
         <h2>Step 2) Download a File</h2>
-        <p> Specify the path to a file, example test/test/test.txt</p>
+        <p> Specify the path to a file, example <i>test/test/test.txt</i></p>
         <form action="javascript:oneDrive_download(file_path.value)">
-            <input type="text" id="file_path" name="folder_path">
+            <input autocomplete="off" type="text" id="file_path" name="folder_path">
             <button  type="submit">Download Item</button>
         </form>
     </div>
-    <div>
-        <h2>Step 3) Tadaa your file</h2>
+    <div id="step3">
+        <h2>Step 3) Tada your file</h2>
         <h4 id="file_header"></h4>
         <p id="file_contents"></p>
     </div>
