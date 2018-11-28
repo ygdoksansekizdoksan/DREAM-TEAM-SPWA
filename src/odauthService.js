@@ -64,7 +64,7 @@ function getAuthInfoFromUrl() {
     var authResponse = window.location.hash.substring(1);
     var authInfo = JSON.parse(
       '{"' + authResponse.replace(/&/g, '","').replace(/=/g, '":"') + '"}',
-      function(key, value) { return key === "" ? value : decodeURIComponent(value); });
+      function (key, value) { return key === "" ? value : decodeURIComponent(value); });
     return authInfo;
   }
   else {
@@ -96,7 +96,7 @@ function getTokenFromCookie() {
 function setCookie(token, expiresInSeconds) {
   var expiration = new Date();
   expiration.setTime(expiration.getTime() + expiresInSeconds * 1000);
-  var cookie = "odauth=" + token +"; path=/; expires=" + expiration.toUTCString();
+  var cookie = "odauth=" + token + "; path=/; expires=" + expiration.toUTCString();
 
   if (document.location.protocol.toLowerCase() == "https") {
     cookie = cookie + ";secure";
@@ -105,7 +105,18 @@ function setCookie(token, expiresInSeconds) {
   document.cookie = cookie;
 }
 
+var storedAppInfo = null;
+
+function provideAppInfo(appInfo) {
+  storedAppInfo = appInfo;
+}
+
 function getAppInfo() {
+
+  if(storedAppInfo){
+    return storedAppInfo;
+  }
+
   var scriptTag = document.getElementById("odauth");
   if (!scriptTag) {
     alert("the script tag for odauth.js should have its id set to 'odauth'");
@@ -178,30 +189,31 @@ function challengeForAuth() {
     "&scope=" + encodeURIComponent(appInfo.scopes) +
     "&response_type=token" +
     "&redirect_uri=" + encodeURIComponent(appInfo.redirectUri);
+  console.log(url);
   popup(url);
 }
 
 function popup(url) {
   var width = 525,
-      height = 525,
-      screenX = window.screenX,
-      screenY = window.screenY,
-      outerWidth = window.outerWidth,
-      outerHeight = window.outerHeight;
+    height = 525,
+    screenX = window.screenX,
+    screenY = window.screenY,
+    outerWidth = window.outerWidth,
+    outerHeight = window.outerHeight;
 
   var left = screenX + Math.max(outerWidth - width, 0) / 2;
   var top = screenY + Math.max(outerHeight - height, 0) / 2;
 
   var features = [
-              "width=" + width,
-              "height=" + height,
-              "top=" + top,
-              "left=" + left,
-              "status=no",
-              "resizable=yes",
-              "toolbar=no",
-              "menubar=no",
-              "scrollbars=yes"];
+    "width=" + width,
+    "height=" + height,
+    "top=" + top,
+    "left=" + left,
+    "status=no",
+    "resizable=yes",
+    "toolbar=no",
+    "menubar=no",
+    "scrollbars=yes"];
   var popup = window.open(url, "oauth", features.join(","));
   if (!popup) {
     alert("failed to pop up auth window");
