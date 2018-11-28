@@ -18,7 +18,8 @@ function oneDrive_download(folder_path) {
         alert("login into onedrive")
         return;
     }
-    
+
+    console.log(folder_path)
 
 
 }
