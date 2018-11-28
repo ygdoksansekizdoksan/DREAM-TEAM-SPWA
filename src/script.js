@@ -13,8 +13,14 @@ function oneDrive_login() {
     challengeForAuth();
 }
 
-function oneDrive_download(){
-    console.log('download item');
+function oneDrive_download(folder_path) {
+    if(!is_authenticated()){
+        alert("login into onedrive")
+        return;
+    }
+    
+
+
 }
 
 
@@ -24,6 +30,11 @@ window.onAuthenticated = function (token, authWindow) {
         this.console.log("token : ", token);
         store_session(token);
     }
+}
+
+function is_authenticated() {
+    var expiresAt = JSON.parse(localStorage.getItem('oneDriveExpiresAt'));
+    return new Date().getTime() < expiresAt;
 }
 
 function store_session(token) {
