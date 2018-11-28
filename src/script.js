@@ -25,7 +25,12 @@ function oneDrive_download(file_path) {
     console.log('file : ', file);
     console.log('path : ', file_path);
 
+    donwload_folder(localStorage.getItem("oneDriveToken"),undefined);
+}
 
+function donwload_folder(token,folder="root"){
+    var path = folder == "root" ? "/v1.0/me/drive/root/children" : '/v1.0/me/drive/items/' + encodeURI(folderID) + '/children';
+    console.log(path);
 }
 
 
