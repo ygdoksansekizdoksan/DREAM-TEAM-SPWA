@@ -21,7 +21,8 @@ function oneDrive_download(file_path) {
 
 
     download_folder(localStorage.getItem("oneDriveToken"), file_path).then(function(result){
-  
+        document.getElementById("file_header").innerHTML = "File Path : " + file_path;
+        document.getElementById("file_contents").innerHTML = result[1];
     }).catch(function(error){
         if(error[0] == 401){
             alert("You are unauthorized, try logging in");
