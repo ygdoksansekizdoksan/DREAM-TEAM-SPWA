@@ -13,13 +13,17 @@ function oneDrive_login() {
     challengeForAuth();
 }
 
-function oneDrive_download(folder_path) {
+function oneDrive_download(file_path) {
     if(!is_authenticated()){
         alert("login into onedrive")
         return;
     }
 
-    console.log(folder_path)
+    file_path = file_path.split('/');
+    var file = file_path.pop();
+
+    console.log('file : ', file);
+    console.log('path : ', file_path);
 
 
 }
