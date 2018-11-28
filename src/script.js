@@ -25,37 +25,37 @@ function oneDrive_download(file_path) {
 
 
 /*
+    Using 302 re-direct does not work a because of CORS.
+    Look at for https://github.com/microsoftgraph/microsoft-graph-docs/issues/43 more info.
 
-Using 302 re-direct does not work a because of CORS.
-Look at for https://github.com/microsoftgraph/microsoft-graph-docs/issues/43 more info.
-
-Using the @microsoft.graph.downloadUrl property drive-item only works for personal accounts
-
+    Make sure when using @microsoft.graph.downloadUrl property dont send authorization 
 */
 
 function donwload_folder(token, file_path) {
-    var URI = "https://graph.microsoft.com/v1.0/me/drive/root:/" + file_path;
-    console.log(URI);
+    return new Promise(function (resolve, reject) {
+        var URI = "https://graph.microsoft.com/v1.0/me/drive/root:/" + file_path;
+     
+        var xhttp = new XMLHttpRequest();
 
-    var xhttp = new XMLHttpRequest();
-    
-    xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            var download_uri = JSON.parse(xhttp.responseText)["@microsoft.graph.downloadUrl"];
-            var download_request = new XMLHttpRequest();
-            
-            download_request.onreadystatechange = function(){
-                if(this.readyState == 4 && this.status == 200){
-                    console.log(download_request.responseText);
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var download_uri = JSON.parse(xhttp.responseText)["@microsoft.graph.downloadUrl"];
+                var download_request = new XMLHttpRequest();
+
+                download_request.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        resolve(download_request.responseText);
+                    }
                 }
+                download_request.open("GET", download_uri, true);
+                download_request.send();
             }
-            download_request.open("GET",download_uri,true);
-            download_request.send();
-        }
-    };
-    xhttp.open("GET",URI, true);
-    xhttp.setRequestHeader("Authorization","bearer " + token);
-    xhttp.send();
+        };
+        xhttp.open("GET", URI, true);
+        xhttp.setRequestHeader("Authorization", "bearer " + token);
+        xhttp.send();
+    });
+
 }
 
 
