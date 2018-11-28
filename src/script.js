@@ -19,17 +19,12 @@ function oneDrive_download(file_path) {
         return;
     }
 
-    file_path = file_path.split('/');
-    var file = file_path.pop();
 
-    console.log('file : ', file);
-    console.log('path : ', file_path);
-
-    donwload_folder(localStorage.getItem("oneDriveToken"),undefined);
+    donwload_folder(localStorage.getItem("oneDriveToken"),file_path);
 }
 
-function donwload_folder(token,folder="root"){
-    var path = folder == "root" ? "/v1.0/me/drive/root/children" : '/v1.0/me/drive/items/' + encodeURI(folderID) + '/children';
+function donwload_folder(token,file_path){
+    var path = "/me/drive/root:/"+file_path+":/content";
     console.log(path);
 }
 
