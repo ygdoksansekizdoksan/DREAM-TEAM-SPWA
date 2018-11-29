@@ -56,8 +56,6 @@ Within the script.js file locate ```appInfo``` on Line 7. Modify ```appInfo``` t
 
 Some notes on the OneDrive API, which I painfully found so you don't have to.
 
-
-
 The OneDrive REST API provides two ways to download the contents of a file : 
 
 1. Using the /content endpoint
@@ -69,9 +67,19 @@ The /content endpoint returns a 302 response redirecting to a temporary pre-auth
 
 
 
+*For more information look at https://github.com/microsoftgraph/microsoft-graph-docs/issues/43*
+
+
+
 To download the file the contents from client side the '@microsoft.graph.downloadUrl' property can be used. First you must request files meta-data which includes the '@microsoft.graph.downloadUrl' property. The '@microsoft.graph.downloadUrl' provides a temporary authenticated url to download file contents.
 
 
 
-Wen requesting the '@microsoft.graph.downloadUrl' url DO NOT send any Authorisation headers. Sending Authorisation headers will cause a :
+When requesting the '@microsoft.graph.downloadUrl' url DO NOT send any Authorisation headers. Sending Authorisation headers will cause a :
 
+1. CORS error when requesting from client
+
+2. 404 error when reqeusting from server
+
+
+*For more information at https://docs.microsoft.com/en-gb/onedrive/developer/rest-api/api/driveitem_get_content?view=odsp-graph-online*
