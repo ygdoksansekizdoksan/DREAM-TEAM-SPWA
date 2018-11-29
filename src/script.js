@@ -41,7 +41,7 @@ function oneDrive_download(file_path) {
             alert("item not found, check path");
         }
         else{
-            alert("You have a wierd error, check the console");
+            alert("You have a weird error, check the console");
             console.log(error);
         }
     });
@@ -49,13 +49,28 @@ function oneDrive_download(file_path) {
 
 
 /*
-    Using 302 re-direct does not work a because of CORS.
-    Look at for https://github.com/microsoftgraph/microsoft-graph-docs/issues/43 more info.
+    Downloads file contents from OneDrive using the '@microsoft.graph.downloadurl'
+    token : OneDrive auth token
+    file_path : absolute path to file, example : test/test/test.txt 
 
-    Make sure when using @microsoft.graph.downloadUrl property dont send authorization 
+    ======================================= IMPORTANT INFORMATION ABOUT THE ONEDRIVE API =============================================================
+        Downloads file contents by :
+            1) Downloading files meta-data, which includes '@microsoft.graph.downloadUrl' property
+                The '@microsoft.graph.downloadUrl' provides a temporary authenticated url to download the file contents
+            2) Using the temporary url download file contents
+                When using the '@microsoft.graph.downloadurl' property DO NOT send any any Authorisation headers. 
+                    Sending Authorisation headers will cause a :
+                    1) CORS error when requesting from client
+                    2) 404 error when requesting from server
+                For more information look at https://github.com/microsoftgraph/microsoft-graph-docs/issues/43
+
+        OneDrive API provides a second way to download file contents, using the /content endpoint. Using the /content point client-side
+        will always cause a CORS issue. The /content endpoint returns 302 response redirecting to a temporary pre-authenticated url 
+        (the same url as '@microsoft.graph.downloadUrl')
+    
+        For more information look at https://docs.microsoft.com/en-gb/onedrive/developer/rest-api/api/driveitem_get_content?view=odsp-graph-online
+    ===================================================================================================================================================
 */
-
-
 function download_folder(token, file_path) {
     return new Promise(function (resolve, reject) {
         donwload_metadata(token, file_path).then(function (result) {
