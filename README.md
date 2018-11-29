@@ -52,7 +52,26 @@ Within the script.js file locate ```appInfo``` on Line 7. Modify ```appInfo``` t
 
 
 
- 
+### Notes on the OneDrive API
+
+Some notes on the OneDrive API, which I painfully found so you don't have to.
 
 
+
+The OneDrive REST API provides two ways to download the contents of a file : 
+
+1. Using the /content endpoint
+
+2. Using the '@microsoft.graph.downloadUrl' property
+
+
+The /content endpoint returns a 302 response redirecting to a temporary pre-authenticated url to download the file contents. Requesting the /content endpoint from a sever works great, but, requesting from client-side the 302 causes a CORS error.
+
+
+
+To download the file the contents from client side the '@microsoft.graph.downloadUrl' property can be used. First you must request files meta-data which includes the '@microsoft.graph.downloadUrl' property. The '@microsoft.graph.downloadUrl' provides a temporary authenticated url to download file contents.
+
+
+
+Wen requesting the '@microsoft.graph.downloadUrl' url DO NOT send any Authorisation headers. Sending Authorisation headers will cause a :
 
