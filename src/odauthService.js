@@ -1,34 +1,34 @@
-// instructions:
-// - host a copy of callback.html and odauth.js on your domain.
-// - embed odauth.js in your app like this:
-//   <script id="odauth" src="odauth.js"
-//           ></script>
-// - define the onAuthenticated(token) function in your app to receive the auth token.
-// - call odauth() to begin, as well as whenever you need an auth token
-//   to make an API call. if you're making an api call in response to a user's
-//   click action, call odAuth(true), otherwise just call odAuth(). the difference
-//   is that sometimes odauth needs to pop up a window so the user can sign in,
-//   grant your app permission, etc. the pop up can only be launched in response
-//   to a user click, otherwise the browser's popup blocker will block it. when
-//   odauth isn't called in click mode, it'll put a sign-in button at the top of
-//   your page for the user to click. when it's done, it'll remove that button.
-//
-// how it all works:
-// when you call odauth(), we first check if we have the user's auth token stored
-// in a cookie. if so, we read it and immediately call your onAuthenticated() method.
-// if we can't find the auth cookie, we need to pop up a window and send the user
-// to Microsoft Account so that they can sign in or grant your app the permissions
-// it needs. depending on whether or not odauth() was called in response to a user
-// click, it will either pop up the auth window or display a sign-in button for
-// the user to click (which results in the pop-up). when the user finishes the
-// auth flow, the popup window redirects back to your hosted callback.html file,
-// which calls the onAuthCallback() method below. it then sets the auth cookie
-// and calls your app's onAuthenticated() function, passing in the optional 'window'
-// argument for the popup window. your onAuthenticated function should close the
-// popup window if it's passed in.
-//
-// subsequent calls to odauth() will usually complete immediately without the
-// popup because the cookie is still fresh.
+
+/*
+ This is a modified library, for original goto  https://github.com/tmathew1000/OneDriveWebPicker/blob/c371f9970153e3f8484a8001c017733644d5dc70/OneDriveWebPicker/odauth.js
+
+ =====================================INSTRUCTIONS=======================================
+ Host a copy of callback.html and odauthService.js on your domain.
+
+ Before requesting authentication you must provide authorisation information.
+ Call provideAppInfo(appInfo) passing appInfo.
+
+  appInfoStructure = {
+    "clientId" : "clientId_from_graph_account"
+    "redirectUri" : "example_redirect_uri"
+    "scopes" : "example_scopes"
+    "authServiceUri" : "https://login.microsoftonline.com/common/oauth2/v2.0/authorize"
+  }
+=========================================================================================
+
+
+  
+========================================HOW IT WORKS=============================================
+  When challengeForAuth() is called a pop up a window and send the user to Microsoft Account 
+  so that they can sign in or grant your app the permissions it needs. When the user finishes the
+  auth flow, the popup window redirects back to your hosted callback.html file,
+  which calls the onAuthCallback() method below. It extracts the auth token
+  and calls your app's onAuthenticated() function, passing in the 'window'
+  and token arguments for the popup window. Your onAuthenticated function should close the
+  popup window.
+=================================================================================================
+
+*/
 
 
 // for added security we require https
@@ -38,6 +38,9 @@ function ensureHttps() {
   }
 }
 
+// Called when user finishes the OneDrive auth flow
+// Calls the onAuthenticated() function passing in the 'window' and
+// token arguments
 function onAuthCallback() {
   console.log('callback');
   var authInfo = getAuthInfoFromUrl();
@@ -45,6 +48,7 @@ function onAuthCallback() {
   window.opener.onAuthenticated(token, window);
 }
 
+// Extracts the auth token from URL
 function getAuthInfoFromUrl() {
   if (window.location.hash) {
     var authResponse = window.location.hash.substring(1);
@@ -62,6 +66,7 @@ function getAuthInfoFromUrl() {
 
 var storedAppInfo = null;
 
+// Stores appInfo
 function provideAppInfo(appInfo) {
 
   if (!appInfo.hasOwnProperty("clientId")) {
@@ -94,7 +99,8 @@ function getAppInfo() {
 }
 
 
-
+// Attempts a OneDrive Login, opening a new window prompting user to login into
+// OneDrive. 
 function challengeForAuth() {
   var appInfo = getAppInfo();
   var url =
