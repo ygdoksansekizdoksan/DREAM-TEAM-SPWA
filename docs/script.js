@@ -6,7 +6,7 @@ function oneDrive_login() {
     //OneDrive Application information, retrieved from Microsoft Graph API
     var appInfo = {
         "clientId": 'dabc0641-14b9-4c5f-8956-73693bbc3821',
-        "redirectUri": "https://127.0.0.1:8080/callback.html",
+        "redirectUri": "https://aliceliveprojects.github.io/little_onedrive_spwa/callback.html",
         "scopes": "sites.read.all",
         "authServiceUri": "https://login.microsoftonline.com/common/oauth2/v2.0/authorize"
     }
