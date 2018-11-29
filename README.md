@@ -1,6 +1,8 @@
 # little_onedrive_spwa
 little_onedrive_spwa is a Single Page Web Application (SPWA) to connect to the [OneDrive REST API](https://docs.microsoft.com/en-gb/onedrive/developer/rest-api/?view=odsp-graph-online).
 
+Check out the SPWA : https://aliceliveprojects.github.io/little_onedrive_spwa/src/index.html
+
 The SPWA can do two things:
 
 1. Reqest OneDrive authorisation token.
