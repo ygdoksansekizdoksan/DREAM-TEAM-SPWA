@@ -1,0 +1,27 @@
+{
+  "name": "little_onedrive_spwa",
+  "version": "1.0.0",
+  "description": "Single Page Web application that connects to the OneDrive API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aliceliveprojects/little_onedrive_spwa.git"
+  },
+  "keywords": [
+    "SPWA",
+    "OneDrive",
+    "API"
+  ],
+  "author": "Yusof Bandar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aliceliveprojects/little_onedrive_spwa/issues"
+  },
+  "homepage": "https://github.com/aliceliveprojects/little_onedrive_spwa#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
