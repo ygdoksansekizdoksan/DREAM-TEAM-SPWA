@@ -8,13 +8,13 @@ The SPWA can do two things:
 
 
 
-### Setting Up Microsoft Developer Account
+## Setting Up Microsoft Developer Account
 
 Before you can use the wonderful SPWA  you need to setup a Microsoft developer account.
 
 
 
-##### Creating Developer Account and Application
+### Creating Developer Account and Application
 
 1. Navigate to Microsoft Graph :  <https://developer.microsoft.com/en-us/graph/>
 2. Click the My Apps login, located on the top bar when not signed in.
@@ -24,7 +24,11 @@ Before you can use the wonderful SPWA  you need to setup a Microsoft developer a
 
 
 
-##### Filling Application Details
+---
+
+
+
+### Filling Application Details
 
 Within a specific application : 
 
@@ -38,7 +42,7 @@ Within a specific application :
 
 
 
-### Filling SPWA Application Information
+## Filling SPWA Application Information
 
 Within the script.js file locate ```appInfo``` on Line 7. Modify ```appInfo``` to the appropriate details, these details must match with the application details filled out earlier.
 
@@ -52,7 +56,7 @@ Within the script.js file locate ```appInfo``` on Line 7. Modify ```appInfo``` t
 
 
 
-### Notes on the OneDrive API
+## Notes on the OneDrive API
 
 Some notes on the OneDrive API, which I painfully found so you don't have to.
 
@@ -68,6 +72,10 @@ The /content endpoint returns a 302 response redirecting to a temporary pre-auth
 
 
 *For more information look at https://github.com/microsoftgraph/microsoft-graph-docs/issues/43*
+
+
+
+---
 
 
 
