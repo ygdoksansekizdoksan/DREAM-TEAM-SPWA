@@ -38,5 +38,21 @@ Within a specific application :
 
 
 
+### Filling SPWA Application Information
+
+Within the script.js file locate ```appInfo``` on Line 7. Modify ```appInfo``` to the appropriate details, these details must match with the application details filled out earlier.
+
+```clientId``` : application Id
+
+```redirectUri``` : application redirect URL
+
+```scopes```: application scopes delimited by a space and formatted to lowercase (example Sites.Read.All ===> sites.read.all)
+
+```authServiceUri```: don't change (should be https://login.microsoftonline.com/common/oauth2/v2.0/authorize)
+
+
+
+ 
+
 
 
