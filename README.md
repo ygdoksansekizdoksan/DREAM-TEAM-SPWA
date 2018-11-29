@@ -56,6 +56,22 @@ Within the script.js file locate ```appInfo``` on Line 7. Modify ```appInfo``` t
 
 
 
+## Deploy application
+
+Deploying the application is really easy.
+
+1. Clone the repo
+2. cd into the repo directory
+3. run ``npm install``
+4. cd into the src folder
+5. run ```node server.js```
+
+
+
+To run the SPWA on https read https://digitallabs.mmu.ac.uk/taming-the-urban-wild/#more-1657
+
+
+
 ## Notes on the OneDrive API
 
 Some notes on the OneDrive API, which I painfully found so you don't have to.
