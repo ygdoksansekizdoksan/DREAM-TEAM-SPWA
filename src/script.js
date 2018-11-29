@@ -49,7 +49,7 @@ function oneDrive_download(file_path) {
 
 
 /*
-    Downloads file contents from OneDrive using the '@microsoft.graph.downloadurl'
+    Downloads file contents from OneDrive using the '@microsoft.graph.downloadurl' property.
     token : OneDrive auth token
     file_path : absolute path to file, example : test/test/test.txt 
 
