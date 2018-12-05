@@ -11,7 +11,8 @@ function login(){
     }
 
     oneDrive_login(appInfo,function(){
-        console.log("logged in");
+        //ignore just for styling
+        document.getElementById("step2").style.visibility = "visible";
     })
 }
 
@@ -48,7 +49,8 @@ function download(file_path) {
 
 
 
-
+//ignore just for styling
 document.addEventListener( "DOMContentLoaded", function(){
     document.getElementById("step3").style.visibility = "hidden";
+    document.getElementById("step2").style.visibility = "hidden"
 })

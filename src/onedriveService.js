@@ -4,6 +4,7 @@ var authenticatedCallback;
 
 // Attempts to login to OneDrive
 function oneDrive_login(appInfo,callback) {
+    //store callback, called when user succefully logs in
     authenticatedCallback = callback;
     //provide the app info
     provideAppInfo(appInfo);
