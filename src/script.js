@@ -44,7 +44,7 @@ function download(file_path) {
         else if(error[0] == 404){
             alert("item not found, check path");
         }else if(error[0] == -1){
-            alert("invalid file_path");
+            alert("invalid file path");
         }
         else{
             alert("You have a weird error, check the console");
