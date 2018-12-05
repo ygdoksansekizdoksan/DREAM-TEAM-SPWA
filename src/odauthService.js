@@ -1,6 +1,8 @@
 
 /*
- This is a modified library, for original goto  https://github.com/tmathew1000/OneDriveWebPicker/blob/c371f9970153e3f8484a8001c017733644d5dc70/OneDriveWebPicker/odauth.js
+ This is a modified library, for original goto : 
+                                  - https://github.com/tmathew1000/OneDriveWebPicker/blob/c371f9970153e3f8484a8001c017733644d5dc70/OneDriveWebPicker/odauth.js
+                                  - http://web.archive.org/web/20181205150919/https://github.com/tmathew1000/OneDriveWebPicker/blob/c371f9970153e3f8484a8001c017733644d5dc70/OneDriveWebPicker/odauth.js
 
  =====================================INSTRUCTIONS=======================================
  Host a copy of callback.html and odauthService.js on your domain.
