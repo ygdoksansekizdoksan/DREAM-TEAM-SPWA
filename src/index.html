@@ -8,19 +8,20 @@
     <title>OneDrive API SPWA</title>
     <link rel="styleshe et" type="text/css" href="theme.css">
     <script type="text/javascript" src="./odauthService.js"></script>
+    <script type="text/javascript" src="./onedriveService.js"></script>
     <script type="text/javascript" src="./script.js"></script>
 </head>
 
 <body>
     <div>
         <h2>Step 1) Login into OneDrive</H2>
-        <button onClick="oneDrive_login()" type="button">OneDrive Login</button>
+        <button onClick="login()" type="button">OneDrive Login</button>
     </div>
 
-    <div>
+    <div id="step2">
         <h2>Step 2) Download a File</h2>
         <p> Specify the path to a file, example <i>test/test/test.txt</i></p>
-        <form action="javascript:oneDrive_download(file_path.value)">
+        <form action="javascript:download(file_path.value)">
             <input autocomplete="off" type="text" id="file_path" name="folder_path">
             <button  type="submit">Download Item</button>
         </form>
