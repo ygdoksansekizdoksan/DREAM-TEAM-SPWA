@@ -25,6 +25,10 @@ function oneDrive_download(file_path) {
         if (!is_authenticated()) {
             reject([404,"unauthorized"]);
         }
+        
+        if(!isValidPath(file_path)){
+            reject([-1,"bad request inavlid file_path"]);
+        }
 
         // Download file providing OneDrive auth token and file path
         download_folder(localStorage.getItem("oneDriveToken"), file_path).then(function (result) {
@@ -34,6 +38,13 @@ function oneDrive_download(file_path) {
         });
     })
 
+}
+
+
+function isValidPath(file_path){
+    //regex checks for invalid characters
+    var re = new RegExp("[~|\"|#|%|&|*|:|<|>|?|\\|{|\||}]|(lock)|(CON)|(PRN)|(AUX)|(NUL)|(COM1)|(\-COM9)|(LPT1)|(\-)|(LPT9)|(_vti_)|(desktop.ini)","g")
+    return !re.test(file_path);
 }
 
 
