@@ -40,7 +40,9 @@ function oneDrive_download(file_path) {
 
 }
 
-
+/*
+    Checks for in-valid characters within the file_path
+*/
 function isValidPath(file_path){
     //regex checks for invalid characters
     var re = new RegExp("[~|\"|#|%|&|*|:|<|>|?|\\|{|\||}]|(lock)|(CON)|(PRN)|(AUX)|(NUL)|(COM1)|(\-COM9)|(LPT1)|(\-)|(LPT9)|(_vti_)|(desktop.ini)","g")
