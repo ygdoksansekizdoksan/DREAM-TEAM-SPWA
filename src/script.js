@@ -16,6 +16,10 @@ function login(){
     })
 }
 
+function logout(){
+    oneDrive_logout();
+}
+
 
 
 // Downloads specific file from a OneDrive account

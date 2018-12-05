@@ -12,13 +12,18 @@ function oneDrive_login(appInfo,callback) {
     challengeForAuth();
 }
 
+
+function oneDrive_logout(){
+    localStorage.setItem("oneDriveExpiresAt", -1);
+    localStorage.setItem("oneDriveToken", "");
+}
+
 // Downloads specific file from a OneDrive account
 // file_path : absolute path to file, example : test/test/test.txt 
 function oneDrive_download(file_path) {
-    return new Promise(function (resolve, result) {
+    return new Promise(function (resolve, reject) {
         if (!is_authenticated()) {
-            reject("unauthorized")
-            return;
+            reject([404,"unauthorized"]);
         }
 
         // Download file providing OneDrive auth token and file path
