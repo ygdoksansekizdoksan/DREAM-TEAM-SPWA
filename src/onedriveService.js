@@ -42,6 +42,9 @@ function oneDrive_download(file_path) {
 
 /*
     Checks for in-valid characters within the file_path
+    For oneDrive invalid characters see:
+        https://support.office.com/en-us/article/Invalid-file-names-and-file-types-in-OneDrive-OneDrive-for-Business-and-SharePoint-64883a5d-228e-48f5-b3d2-eb39e07630fa#invalidcharacters
+    
 */
 function isValidPath(file_path){
     //regex checks for invalid characters
@@ -64,13 +67,17 @@ function isValidPath(file_path){
                     Sending Authorisation headers will cause a :
                     1) CORS error when requesting from client
                     2) 404 error when requesting from server
-                For more information look at https://github.com/microsoftgraph/microsoft-graph-docs/issues/43
+                For more information look at :
+                        - https://github.com/microsoftgraph/microsoft-graph-docs/issues/43
+                        - http://web.archive.org/web/20181205150708/https://github.com/microsoftgraph/microsoft-graph-docs/issues/43
 
         OneDrive API provides a second way to download file contents, using the /content endpoint. Using the /content point client-side
         will always cause a CORS issue. The /content endpoint returns 302 response redirecting to a temporary pre-authenticated url 
         (the same url as '@microsoft.graph.downloadUrl')
     
-        For more information look at https://docs.microsoft.com/en-gb/onedrive/developer/rest-api/api/driveitem_get_content?view=odsp-graph-online
+        For more information look at :
+                                - https://docs.microsoft.com/en-gb/onedrive/developer/rest-api/api/driveitem_get_content?view=odsp-graph-online
+                                - http://web.archive.org/web/20181205150810/https://docs.microsoft.com/en-gb/onedrive/developer/rest-api/api/driveitem_get_content?view=odsp-graph-online
     ===================================================================================================================================================
 */
 function download_folder(token, file_path) {
