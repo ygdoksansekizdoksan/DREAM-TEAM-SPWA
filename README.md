@@ -89,7 +89,7 @@ The /content endpoint returns a 302 response redirecting to a temporary pre-auth
 
 
 
-*For more information look at https://github.com/microsoftgraph/microsoft-graph-docs/issues/43*
+*For more information look at [Issues](https://github.com/microsoftgraph/microsoft-graph-docs/issues/43) or [IssuesV2](http://web.archive.org/web/20181205150708/https://github.com/microsoftgraph/microsoft-graph-docs/issues/43)*
 
 
 
