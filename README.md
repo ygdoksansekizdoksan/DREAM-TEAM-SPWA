@@ -89,7 +89,7 @@ The /content endpoint returns a 302 response redirecting to a temporary pre-auth
 
 
 
-*For more information look at [Issues](https://github.com/microsoftgraph/microsoft-graph-docs/issues/43) or [IssuesV2](http://web.archive.org/web/20181205150708/https://github.com/microsoftgraph/microsoft-graph-docs/issues/43)*
+*For more information look at [Issues](https://github.com/microsoftgraph/microsoft-graph-docs/issues/43) or [Issues Archived](http://web.archive.org/web/20181205150708/https://github.com/microsoftgraph/microsoft-graph-docs/issues/43)*
 
 
 
@@ -108,4 +108,4 @@ When requesting the '@microsoft.graph.downloadUrl' url DO NOT send any Authorisa
 2. 404 error when reqeusting from server
 
 
-*For more information at [Docs](https://docs.microsoft.com/en-gb/onedrive/developer/rest-api/api/driveitem_get_content?view=odsp-graph-online) or [DocsV2](http://web.archive.org/web/20181205150810/https://docs.microsoft.com/en-gb/onedrive/developer/rest-api/api/driveitem_get_content?view=odsp-graph-online)*
+*For more information at [Docs](https://docs.microsoft.com/en-gb/onedrive/developer/rest-api/api/driveitem_get_content?view=odsp-graph-online) or [Docs Archived](http://web.archive.org/web/20181205150810/https://docs.microsoft.com/en-gb/onedrive/developer/rest-api/api/driveitem_get_content?view=odsp-graph-online)*
