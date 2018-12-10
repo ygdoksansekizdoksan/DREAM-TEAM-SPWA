@@ -126,6 +126,7 @@ function popup(url) {
     "resizable=yes",
     "toolbar=no",
     "menubar=no",
+    "personalbar=no",
     "scrollbars=yes"];
 
   var popup = window.open(url, "oauth", features.join(","));
