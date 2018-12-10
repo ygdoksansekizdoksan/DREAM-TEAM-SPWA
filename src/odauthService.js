@@ -21,8 +21,8 @@
 
   
 ========================================HOW IT WORKS=============================================
-  When challengeForAuth() is called a pop up a window and send the user to Microsoft Account 
-  so that they can sign in or grant your app the permissions it needs. When the user finishes the
+  When challengeForAuth() is called a pop up window is opened the user send to Microsoft Account login. 
+  User can sign in and may request app permissions. When the user finishes the
   auth flow, the popup window redirects back to your hosted callback.html file,
   which calls the onAuthCallback() method below. It extracts the auth token
   and calls your app's onAuthenticated() function, passing in the 'window'
