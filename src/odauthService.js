@@ -60,7 +60,7 @@ function getAuthInfoFromUrl() {
     return authInfo;
   }
   else {
-    alert("failed to receive auth token");
+    console.error("failed to receive auth token");
   }
 }
 
@@ -131,7 +131,7 @@ function popup(url) {
 
   var popup = window.open(url, "oauth", features.join(","));
   if (!popup) {
-    alert("failed to pop up auth window");
+   console.error("failed to pop up auth window");
   }
 
   popup.focus();
