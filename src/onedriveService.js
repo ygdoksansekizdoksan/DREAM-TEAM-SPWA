@@ -3,17 +3,20 @@
 var authenticatedCallback;
 
 // Attempts to login to OneDrive
-function oneDrive_login(appInfo,callback) {
+function oneDrive_login(appInfo, callback) {
     //store callback, called when user succefully logs in
     authenticatedCallback = callback;
     //provide the app info
+
     provideAppInfo(appInfo);
     //attempt login
     challengeForAuth();
+
+
 }
 
 
-function oneDrive_logout(){
+function oneDrive_logout() {
     localStorage.setItem("oneDriveExpiresAt", -1);
     localStorage.setItem("oneDriveToken", "");
 }
@@ -23,11 +26,11 @@ function oneDrive_logout(){
 function oneDrive_download(file_path) {
     return new Promise(function (resolve, reject) {
         if (!is_authenticated()) {
-            reject([404,"unauthorized"]);
+            return reject([404, "unauthorized"]);
         }
-        
-        if(!isValidPath(file_path)){
-            reject([-1,"bad request inavlid file_path"]);
+
+        if (!isValidPath(file_path)) {
+            return reject([-1, "bad request inavlid file_path"]);
         }
 
         // Download file providing OneDrive auth token and file path
@@ -46,9 +49,10 @@ function oneDrive_download(file_path) {
         https://support.office.com/en-us/article/Invalid-file-names-and-file-types-in-OneDrive-OneDrive-for-Business-and-SharePoint-64883a5d-228e-48f5-b3d2-eb39e07630fa#invalidcharacters
     
 */
-function isValidPath(file_path){
+function isValidPath(file_path) {
     //regex checks for invalid characters
-    var re = new RegExp("[~|\"|#|%|&|*|:|<|>|?|\\|{|\||}]|(lock)|(CON)|(PRN)|(AUX)|(NUL)|(COM1)|(\-COM9)|(LPT1)|(\-)|(LPT9)|(_vti_)|(desktop.ini)","g")
+    var re = new RegExp("[~|\"|#|%|&|*|:|<|>|?|\\|{|\||}]|(lock)|(CON)|(PRN)|(AUX)| \
+    (NUL)|(COM1)|(\-COM9)|(LPT1)|(\-)|(LPT9)|(_vti_)|(desktop.ini)", "g")
     return !re.test(file_path);
 }
 

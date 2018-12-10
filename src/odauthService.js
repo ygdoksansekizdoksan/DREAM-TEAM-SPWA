@@ -71,22 +71,10 @@ var storedAppInfo = null;
 // Stores appInfo
 function provideAppInfo(appInfo) {
 
-  if (!appInfo.hasOwnProperty("clientId")) {
-    alert("clientId was is not defined");
-    return;
-  }
-  if (!appInfo.hasOwnProperty("redirectUri")) {
-    alert("redirectUri was is not defined");
-    return;
-  }
-  if (!appInfo.hasOwnProperty("scopes")) {
-    alert("scopes was is not defined");
-    return;
-  }
-  if (!appInfo.hasOwnProperty("authServiceUri")) {
-    alert("authServiceUri was is not defined");
-    return;
-  }
+  if (!appInfo.hasOwnProperty("clientId")) { throw ("clientId was not defined"); }
+  if (!appInfo.hasOwnProperty("redirectUri")) { throw ("redirectUri was not defined"); }
+  if (!appInfo.hasOwnProperty("scopes")) { throw ("scopes was is defined"); }
+  if (!appInfo.hasOwnProperty("authServiceUri")) { throw ("authServiceUri was not defined"); }
 
   storedAppInfo = appInfo;
 }
@@ -97,21 +85,25 @@ function getAppInfo() {
     return storedAppInfo;
   }
 
-  alert("No AppInfo was provided, make sure provedAppInfo() was called");
+  throw ("No AppInfo was provided, make sure provedAppInfo() was called");
 }
 
 
 // Attempts a OneDrive Login, opening a new window prompting user to login into
 // OneDrive. 
 function challengeForAuth() {
-  var appInfo = getAppInfo();
-  var url =
-    appInfo.authServiceUri +
-    "?client_id=" + appInfo.clientId +
-    "&scope=" + encodeURIComponent(appInfo.scopes) +
-    "&response_type=token" +
-    "&redirect_uri=" + encodeURIComponent(appInfo.redirectUri);
-  popup(url);
+  try {
+    var appInfo = getAppInfo();
+    var url =
+      appInfo.authServiceUri +
+      "?client_id=" + appInfo.clientId +
+      "&scope=" + encodeURIComponent(appInfo.scopes) +
+      "&response_type=token" +
+      "&redirect_uri=" + encodeURIComponent(appInfo.redirectUri);
+    popup(url);
+  } catch (error) {
+    throw (error);
+  }
 }
 
 function popup(url) {
@@ -135,6 +127,7 @@ function popup(url) {
     "toolbar=no",
     "menubar=no",
     "scrollbars=yes"];
+
   var popup = window.open(url, "oauth", features.join(","));
   if (!popup) {
     alert("failed to pop up auth window");
