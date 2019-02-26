@@ -17,9 +17,9 @@ function oneDrive_login(appInfo, callback) {
 
 
 function oneDrive_logout() {
-   /* localStorage.setItem("oneDriveExpiresAt", -1);
-    localStorage.setItem("oneDriveToken", "");*/
-	try{$menu.closeCurrent();}catch(e){};
+    localStorage.setItem("oneDriveExpiresAt", -1);
+    localStorage.setItem("oneDriveToken", "");
+	
 }
 
 // Downloads specific file from a OneDrive account
