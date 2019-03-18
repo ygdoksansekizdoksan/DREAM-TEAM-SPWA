@@ -4,8 +4,8 @@ function login(){
    
     //OneDrive Application information, retrieved from Microsoft Graph API
     var appInfo = {
-        "clientId": 'a60787c6-f851-4306-b7ec-4ec73c37e51d',
-        "redirectUri": "https://onedrive.live.com/about/signin",
+        "clientId": '532f0609-b82b-410f-b9a9-cdf1e678a5b6',
+        "redirectUri": "https://aliceliveprojects.github.io/DREAM-TEAM-SPWA/src/callback.html",
         "scopes": "sites.read.all",
         "authServiceUri": "https://login.microsoftonline.com/common/oauth2/v2.0/authorize"
     }
